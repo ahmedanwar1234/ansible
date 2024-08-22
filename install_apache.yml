@@ -4,9 +4,10 @@
   tasks:
 
     - name: install apache2 package
-      apt:
-        name: apache2
-
+      dnf:
+        name: httpd
+      when: ansible_distribution == "Rocky"
     - name: add php support for apache
-      apt: 
-         name: libapache2-mod-php
+      dnf: 
+         name: php
+      when: ansible_distribution == "Rocky"
