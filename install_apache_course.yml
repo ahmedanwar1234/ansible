@@ -1,0 +1,13 @@
+---
+
+- hosts: all
+  become: true
+  tasks: 
+
+  - name: install apche and php
+    package:
+      name: 
+         - "{{ apacke_package }}"
+         - "{{ php_package }}"
+      state: latest
+      update_cache: yes
