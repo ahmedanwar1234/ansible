@@ -15,3 +15,7 @@ jobs --> to list background processes
 - ctl + R --> search about command in history
 -  to run command in history by number of command   --> !number_of_command
 - HISTTIMEFORMAT="%Y-%m-d% %T "      --> this command for format history to be more details about time commands running past 
+
+
+- sudo firewall-cmd --add-port=80/tcp
+                 -->  permission to enable ip in port 80/tcp 

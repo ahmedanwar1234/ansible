@@ -49,11 +49,19 @@
          name: php
       when: ansible_distribution == "Arch"
 
-
+    - name:   copy default html file for site
+      tags: apache,apache2,httpd
+      copy:
+        src: default_site.html
+        dest: /var/www/html/index.html
+        group: root
+        owner: root
+        mode: 0644
+   
 - hosts: db_servers
   become: true
   tasks:
- 
+
   - name: install mariadb package (CentOs)
     dnf:
       name: mariadb
@@ -70,9 +78,9 @@
 - hosts: file_servers
   become: true
   tasks:
-    
+
   - name:  install samba package
-    package: 
+    package:
       name: samba
       state: latest
 

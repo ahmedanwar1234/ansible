@@ -10,3 +10,7 @@ ansible-playbook --list-tags site.yml
 
 ansible-playbook --tags apache --ask-become-pass site.yml 
      --> this command run olny tasks have tag apache 
+
+ sudo firewall-cmd --add-port=80/tcp
+                 -->  permission to enable ip in port 80/tcp
+
