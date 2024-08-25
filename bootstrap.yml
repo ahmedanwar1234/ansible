@@ -1,0 +1,45 @@
+---
+
+- hosts: all
+  become: true
+  pre_tasks:
+    - name: install updates (CentOs)
+      tags: always
+      dnf:
+        update_only: yes
+        update_cache: yes
+      when: ansible_distribution == "Rocky"
+    - name: install update (Ubuntu)
+      tags: always
+      apt:
+        upgrade: dist
+        upgrade_cache: yes
+      when: ansible_distribution == "Ubuntu"
+
+
+- hosts: all
+  become: true
+  tasks:
+   
+  - name: create ahmed user
+    tags: always
+    user:
+     name: ahmed
+     groups: root
+ 
+
+  - name: add ssh key for ahmed
+    tags: always
+    authorized_key:
+      user: ahmed
+      key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDCJKhYwc9M5LGisP1bfkWn/j+5AB9HEzebPT6hKc22SSe/X4PemrzDkQXNpyWQ90QGtl6IH8hFXgQx7oz2OweqlG7YgVqYwXcDrtvR33MONwMfUC6pvOnwGHBSoKaDmp3/ls7RyoiHbNyefRlUAJTYSKXtyQ4IO6QV4jU9t10OqjQTh/L2HwgUYxaEAQWpFUVNUVLDlu48gEYV2fT0uOeoHhuwyW00pKUc56A/T4m6jqHiS8BeH+YeKmCl1VLKQn8fD8URpUIpk26Ztaj3UdrI1EtYs/uCNJKRQ/iQEOFaNp+o9VzzyN0hOJFiR7kV4YPw+N9c8PZXix+wlEefwaZRJPY88YYvU3jmMVpxMzpke3jhyA1OOhHeFblWk6FaVtk3xyCkTnISy3N9WL2+8J/eJa6I4iKWdsFdnJ3yMgjJC3jjb6/8a9cyh8ONGCyFKMcrp44TufQ6OI2mBYf2bpcIn/KNTUs2o7n3TmQxIqox4iAMB/Rj2vyr2+fr8ZmNDAOge5IcjdIdkmXzS+sC2ARl40GHdQhHlD2xXBvO6xrsJFkcqRWhLH5pnJsNtSEdusSa2aDFOvodbGDHdXkaXskc/vyArffvOb0gJ5feIkD4pFhyrPj7T1xGUq9dMEc08u6WbuoRFolXSBDWMWV5Fl2bMcKK0htyCdEpcBLsVjEstQ== anwar@fedora"
+
+  - name: add sudoers file for ahmed
+    copy:
+      src: sudoer_ahmed
+      dest: /etc/sudoers.d/ahmed
+      owner: root
+      group: root
+      mode: 0440
+
+ 
