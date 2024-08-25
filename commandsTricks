@@ -1,0 +1,17 @@
+
+cd - --> bravious directory 
+ctl + l = clear   
+[pushd,popd]
+[ctl+z,fg] --> [stoped command in background , return to process]
+htop  --> monitring processes
+jobs --> to list background processes  
+  
+  - example 
+     - apt update 
+       error because sudo 
+     - sudo !! 
+      !! = apt update 
+
+- ctl + R --> search about command in history
+-  to run command in history by number of command   --> !number_of_command
+- HISTTIMEFORMAT="%Y-%m-d% %T "      --> this command for format history to be more details about time commands running past 

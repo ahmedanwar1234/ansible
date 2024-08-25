@@ -1,0 +1,88 @@
+---
+
+- hosts: all
+  become: true
+  pre_tasks:
+    - name: install updates (CentOs)
+      tags: always
+      dnf:
+        update_only: yes
+        update_cache: yes
+      when: ansible_distribution == "Rocky"
+    - name: install update (Ubuntu)
+      tags: always
+      apt:
+        upgrade: dist
+        upgrade_cache: yes
+      when: ansible_distribution == "Ubuntu"
+
+
+- hosts: web_servers
+  become: true
+  tasks: 
+
+
+    - name: install apache2 and php package
+      tags: apache,apache2,upuntu
+      package:
+        name:
+           - "{{ httpd_package }}"
+           - "{{ php_package }}" 
+        state: latest
+      when: ansible_distribution == "Rocky"
+    - name: add php support for apache
+      tags: apache,centos,httpd
+      dnf: 
+         name: php
+      when: ansible_distribution == "Rocky"
+
+    - name: install apache2 and php package
+      dnf:
+        tags: alah alah alah
+        name:
+           - httpd
+           - php
+        state: latest
+      when: ansible_distribution == "Arch"
+    - name: add php support for apache
+      dnf:
+         name: php
+      when: ansible_distribution == "Arch"
+
+
+- hosts: db_servers
+  become: true
+  tasks:
+ 
+  - name: install mariadb package (CentOs)
+    dnf:
+      name: mariadb
+      state: latest
+    when: ansible_distribution == "CentOs
+
+  - name: install mariadb package (Ubuntu)
+    apt:
+      name: mariadb-server
+      state: latest
+    when: ansible_distribution = "Ubuntu"
+
+
+- hosts: file_servers
+  become: true
+  tasks:
+    
+  - name:  install samba package
+    package: 
+      name: samba
+      state: latest
+
+
+- hosts: group_anwar
+  become: true   # this for sudo 
+  tasks:
+
+  - name: first install fucker package
+    dnf:
+      name: fucker_package
+      state: latest
+    when: ansible_distribution == "Arch"
