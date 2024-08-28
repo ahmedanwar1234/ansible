@@ -1,0 +1,6 @@
+  - name: add ssh key for ahmed
+    authorized_key:
+      user: ahmed
+      key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIISCGHIbXLEcf4W7ESmLb7IoZd6G6aM+7SSRiX9n1HP8 anwar@anwar-HP-ZBook-15-G3"
+
+  

@@ -1,0 +1,76 @@
+
+
+    - name: install apache2 and php package
+      tags: apache,apache2,upuntu
+      package:
+        name:
+           - "{{ httpd_package }}"
+           - "{{ php_package }}" 
+        state: latest
+      when: ansible_distribution == "Rocky"
+    - name: add php support for apache
+      tags: apache,centos,httpd
+      dnf: 
+         name: php
+      when: ansible_distribution == "Rocky"
+
+    - name: install apache2 and php package
+      dnf:
+        tags: alah alah alah
+        name:
+           - httpd
+           - php
+        state: latest
+      when: ansible_distribution == "Arch"
+    - name: add php support for apache
+      dnf:
+         name: php
+      when: ansible_distribution == "Arch"
+
+    - name:   copy default html file for site
+      tags: apache,apache2,httpd
+      copy:
+        src: default_site.html
+        dest: /var/www/html/index.html
+        group: root
+        owner: root
+        mode: 0644
+
+    - name: change email address for admin
+      tags: apache,Rocky,httpd
+      lineinfile:
+        path: /etc/httpd/conf/httpd.conf 
+        regexp: '^ServerAdmin'
+        line: ServerAdmin anwar@localhost.net     
+      when: ansible_distribution == "Rocky"
+      register: httpd # can name pizza or any name
+    
+  #  - name: second change
+   #   tags: apache,Rocky,httpd
+    ##
+    #   path: /etc/httpd/conf/httpd.conf 
+     #   regexp: '^ServerAdmin'
+      #  line: ServerAdmin anwar@localhost.net     
+      #when: ansible_distribution == "Rocky"
+      #register: httpd # can name pizza or any name
+    
+
+    - name: restart httpd (Rocky)
+      tags: apache,Rocky,httpd
+      service:
+        name: httpd
+        state: restarted
+      when:  httpd.changed ## pizza.changed
+
+      
+
+
+    - name: start httpd (Rocky)
+      tags:  apache,rocky,httpd
+      service: 
+        name: httpd
+        state: started
+        enabled: yes
+      when: ansible_distribution == "Rocky"
+
+      ## db servers ##
