@@ -41,9 +41,10 @@
       lineinfile:
         path: /etc/httpd/conf/httpd.conf 
         regexp: '^ServerAdmin'
-        line: ServerAdmin anwar@localhost.net     
+        line: ServerAdmin anwar@localhost.com     
       when: ansible_distribution == "Rocky"
-      register: httpd # can name pizza or any name
+      notify: restart_apache # this is same do register but when i write the task i name the task with name notify
+      # register: httpd # can name pizza or any name
     
   #  - name: second change
    #   tags: apache,Rocky,httpd
@@ -55,12 +56,12 @@
       #register: httpd # can name pizza or any name
     
 
-    - name: restart httpd (Rocky)
-      tags: apache,Rocky,httpd
-      service:
-        name: httpd
-        state: restarted
-      when:  httpd.changed ## pizza.changed
+    # - name: restart httpd (Rocky)
+    #   tags: apache,Rocky,httpd
+    #   service:
+    #     name: httpd
+    #     state: restarted
+    #   when:  httpd.changed ## pizza.changed
 
       
 

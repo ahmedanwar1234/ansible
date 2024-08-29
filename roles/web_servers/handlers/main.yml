@@ -1,0 +1,5 @@
+  - name: restart_apache
+    tags: apache,Rocky,httpd
+    service:
+      name: httpd
+      state: restarted  
